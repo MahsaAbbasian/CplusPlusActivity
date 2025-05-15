@@ -1,289 +1,104 @@
-//TicTacToe Game
 #include<iostream>
+#include <cstdlib>
 using namespace std;
-void drowGameTable();
+
+void drawGameTable();
 void switchPlayerMark();
-void inputposition();
+void inputPosition();
 char checkWin();
+bool isDraw();
 
 char board[9] = {'1','2','3','4','5','6','7','8','9'};
-//player1 turn
 int position;
 char playerMark = 'O';
-bool GameHasWinner ;
+bool GameHasWinner = false;
+int movesCount = 0;
 
 int main() {
+    cout << "Welcome to Tic Tac Toe!\n";
+    drawGameTable();
 
-	drowGameTable();
-	cout << "Please look at our board below. There is a table with 9 slot and each slot has a uniq number." << endl; 
-	cout << "we will have 2 player X and O in this Game." << endl;
-	//drowGameTable();
-	while (GameHasWinner = true)
-	{
-	
-		cout << "please Enter board position number between 1-9" << endl;
-		cout << "Its player " << playerMark << " turn now." << endl;
-		cin >> position;
-		inputposition();
-		drowGameTable();
-		switchPlayerMark();
-		checkWin();
-	}
+    while (!GameHasWinner && !isDraw()) {
+        cout << "\nPlease enter a board position (1-9): ";
+        cout << "\nIt's player " << playerMark << "'s turn.\n";
+        cin >> position;
 
-	return 0;
+        inputPosition();
+        drawGameTable();
+
+        char winner = checkWin();
+        if (winner == 'X' || winner == 'O') {
+            cout << "\nPlayer " << winner << " wins!\n";
+            GameHasWinner = true;
+            break;
+        }
+
+        if (isDraw()) {
+            cout << "\nIt's a draw!\n";
+            break;
+        }
+
+        switchPlayerMark();
+    }
+
+    return 0;
 }
-/*******************************************************************
-	 FUNCTION TO DRAW Game BOARD OF TIC TAC TOE
-********************************************************************/
 
-void drowGameTable() {
-
-	system("cls");
-	cout << "******************Tic Tac Toe Game**********************" << endl;
-	cout << "+-----------+" << endl;
-	cout << "| " << board[0] << " | " << board[1] << " | " << board[2] << " | " << endl;
-	cout << "+---+---+---+" << endl;
-	cout << "| " << board[3] << " | " << board[4] << " | " << board[5] << " | " << endl;
-	cout << "+---+---+---+" << endl;
-	cout << "| " << board[6] << " | " << board[7] << " | " << board[8] << " | " << endl;
-	cout << "+-----------+" << endl;
+void drawGameTable() {
+   #ifdef _WIN32
+   // system("cls");
+#else
+    system("clear");
+#endif
+    cout << "\n****************** Tic Tac Toe ******************\n";
+    cout << "+-----------+\n";
+    cout << "| " << board[0] << " | " << board[1] << " | " << board[2] << " |\n";
+    cout << "+---+---+---+\n";
+    cout << "| " << board[3] << " | " << board[4] << " | " << board[5] << " |\n";
+    cout << "+---+---+---+\n";
+    cout << "| " << board[6] << " | " << board[7] << " | " << board[8] << " |\n";
+    cout << "+-----------+\n";
 }
 
 void switchPlayerMark() {
-
-	if (playerMark == 'X')
-	{
-		playerMark = 'O';
-	}
-	else
-	{
-		playerMark = 'X';
-	}
+    playerMark = (playerMark == 'X') ? 'O' : 'X';
 }
-void inputposition() {
 
-	if (position == 1)
-	{
-		if (board[0] == '1') 
-		{
-			board[0] = playerMark;
-		}
-		else {
-			
-			cout << "This field is taken. Please try another number" << endl;
-			cin >> position;
-			inputposition();
-		}
-	}
-	else if (position == 2)
-	{
-		if (board[1] == '2')
-		{
-			board[1] = playerMark;
-		}
-		else {
-			cout << "This field is taken. Please try another number" << endl;
-			cin >> position;
-			inputposition();
-		}
-	}
-	else if (position == 3)
-	{
-		if (board[2] == '3')
-		{
-			board[2] = playerMark;
-		}
-		else {
-			cout << "This field is taken. Please try another number" << endl;
-			cin >> position;
-			inputposition();
-		}
-	}
-	else if (position == 4)
-	{
-		if (board[3] == '4')
-		{
-			board[3] = playerMark;
-		}
-		else {
-			cout << "This field is taken. Please try another number" << endl;
-			cin >> position;
-			inputposition();
-		}
-	}
-	else if (position == 5)
-	{
-		if (board[4] == '5')
-		{
-			board[4] = playerMark;
-		}
-		else {
-			cout << "This field is taken. Please try another number" << endl;
-			cin >> position;
-			inputposition();
-		}
-
-	}
-	else if (position == 6)
-	{
-		if (board[5] == '6')
-		{
-			board[5] = playerMark;
-		}
-		else {
-			cout << "This field is taken. Please try another number" << endl;
-			cin >> position;
-			inputposition();
-		}
-
-	}
-	else if (position == 7)
-	{
-		if (board[6] == '7')
-		{
-			board[6] = playerMark;
-		}
-		else {
-			cout << "This field is taken. Please try another number" << endl;
-			cin >> position;
-			inputposition();
-		}
-
-	}
-	else if (position == 8)
-	{
-		if (board[7] == '8')
-		{
-			board[7] = playerMark;
-		}
-        else {
-			cout << "This field is taken. Please try another number" << endl;
-			cin >> position;
-			inputposition();
-		}
-
-	}
-	else if (position == 9)
-	{
-		if (board[8] == '9')
-		{
-			board[8] = playerMark;
-		}
-		else {
-			cout << "This field is taken. Please try another number" << endl;
-			cin >> position;
-			inputposition();
-		}
-
-	}
-	else
-	{
-	    cout << "You have entered a non-valid position. Please enter a valid move." << endl;
-		cin >> position;
-		inputposition();
-
-	}
+void inputPosition() {
+	if (!(cin >> position)) {
+    cin.clear();
+    cin.ignore(1000, '\n');
+    cout << "Invalid input. Please enter a number.\n";
+    inputPosition();
+    return;
 }
+    int index = position - 1;
+    if (index >= 0 && index < 9 && board[index] == '1' + index) {
+        board[index] = playerMark;
+        movesCount++;
+    } else {
+        cout << "Invalid or occupied field. Try again.\n";
+        cin >> position;
+        inputPosition();
+    }
+}
+
 char checkWin() {
+    int winPatterns[8][3] = {
+        {0,1,2}, {3,4,5}, {6,7,8}, // Rows
+        {0,3,6}, {1,4,7}, {2,5,8}, // Columns
+        {0,4,8}, {2,4,6}           // Diagonals
+    };
 
-
-	if (board[0] == 'X' && board[1] == 'X' && board[2] == 'X') {
-		cout << "X is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[3] == 'X' && board[4] == 'X' && board[5] == 'X') {
-		cout << "X is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-
-	//
-	else if (board[0] == 'X' && board[3] == 'X' && board[6] == 'X') {
-		cout << "X is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[2] == 'X' && board[5] == 'X' && board[8] == 'X') {
-		cout << "X is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-
-	else if (board[6] == 'X' && board[7] == 'X' && board[8] == 'X') {
-		cout << "X is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[0] == 'X' && board[4] == 'X' && board[8] == 'X') {
-		cout << "X is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[2] == 'X' && board[4] == 'X' && board[6] == 'X') {
-		cout << "X is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[1] == 'X' && board[4] == 'X' && board[7] == 'X') {
-		cout << "X is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-
-	else if (board[0] == 'O' && board[1] == 'O' && board[2] == 'O') {
-		cout << "O is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[3] == 'O' && board[4] == 'O' && board[5] == 'O') {
-		cout << "O is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[6] == 'O' && board[7] == 'O' && board[8] == 'O') {
-		cout << "O is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[0] == 'O' && board[4] == 'O' && board[8] == 'O') {
-		cout << "O is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[2] == 'O' && board[4] == 'O' && board[6] == 'O') {
-		cout << "O is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[1] == 'O' && board[4] == 'O' && board[7] == 'O') {
-		cout << "O is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[0] == 'O' && board[3] == 'O' && board[6] == 'O') {
-		cout << "O is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	else if (board[2] == 'O' && board[5] == 'O' && board[8] == 'O') {
-		cout << "O is winner" << endl;
-		GameHasWinner = false;
-		exit(EXIT_SUCCESS);
-	}
-	//cout<< "GAME OVER"<<endl ;
-
-	return 'f';
+    for (auto &pattern : winPatterns) {
+        if (board[pattern[0]] == board[pattern[1]] &&
+            board[pattern[1]] == board[pattern[2]]) {
+            return board[pattern[0]];
+        }
+    }
+    return ' ';
 }
-void gameOver() {
-	for (int i = 0; i <= 9; i++) {
-		inputposition();
-		if (board[i] == 'X' && i==9){
-			cout << " GameOver" << endl;
-		}
-		else if(board[i] == 'X' && i == 9) {
-			cout << " GameOver" << endl;
-		}
 
-	}
+bool isDraw() {
+    return movesCount >= 9;
 }
